@@ -88,7 +88,6 @@ convar_t			*r_drawviewmodel;
 convar_t			*r_customdraw_playermodel;
 convar_t			*cl_himodels;
 convar_t			*r_shadows;		// r_shadows value, re-enabled for studio shadows
-
 cvar_t			r_shadowalpha = { "r_shadowalpha", "0.5", 0, 0.8f };
 static r_studio_interface_t	*pStudioDraw;
 static float		aliasXscale, aliasYscale;	// software renderer scale
@@ -3088,7 +3087,7 @@ static void GAME_EXPORT GL_StudioDrawShadow( void )
 
 	pglDepthMask( GL_TRUE );
 	
-	if( r_shadows->value == 1 )
+	if( r_shadows->value >= 1 )
 	{
 		if( RI.currententity->baseline.movetype != MOVETYPE_FLY )
 		{
