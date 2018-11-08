@@ -3088,10 +3088,6 @@ static void GAME_EXPORT GL_StudioDrawShadow( void )
 
 	pglDepthMask( GL_TRUE );
 	
-	//original line
-	//if( r_shadows.value != 0.0f /* || 1 */ )
-	
-	//taco code
 	if( r_shadows->value == 1 )
 	{
 		if( RI.currententity->baseline.movetype != MOVETYPE_FLY )
