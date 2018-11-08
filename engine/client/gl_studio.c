@@ -87,7 +87,8 @@ convar_t			*r_studio_drawelements;
 convar_t			*r_drawviewmodel;
 convar_t			*r_customdraw_playermodel;
 convar_t			*cl_himodels;
-cvar_t			r_shadows = { "r_shadows", "0", 0, 0 };	// dead cvar. especially disabled
+convar_t			*r_shadows;		// r_shadows value, re-enabled for studio shadows
+
 cvar_t			r_shadowalpha = { "r_shadowalpha", "0.5", 0, 0.8f };
 static r_studio_interface_t	*pStudioDraw;
 static float		aliasXscale, aliasYscale;	// software renderer scale
@@ -155,6 +156,7 @@ void R_StudioInit( void )
 	r_studio_drawelements = Cvar_Get( "r_studio_drawelements", "1", CVAR_ARCHIVE, "Use glDrawElements for studio render" );
 	// NOTE: some mods with custom studiomodel renderer may cause error when menu trying draw player model out of the loaded game
 	r_customdraw_playermodel = Cvar_Get( "r_customdraw_playermodel", "0", CVAR_ARCHIVE, "allow to drawing playermodel in menu with client renderer" );
+	r_shadows = Cvar_Get( "r_shadows", "0", CVAR_ARCHIVE, "enable studio shadows" );
 
 	// recalc software X and Y alias scale (this stuff is used only by HL software renderer but who knews...)
 	pixelAspect = ((float)scr_height->integer / (float)scr_width->integer);
@@ -3085,8 +3087,12 @@ static void GAME_EXPORT GL_StudioDrawShadow( void )
 	GLenum	depthmode2;
 
 	pglDepthMask( GL_TRUE );
-
-	if( r_shadows.value != 0.0f /* || 1 */ )
+	
+	//original line
+	//if( r_shadows.value != 0.0f /* || 1 */ )
+	
+	//taco code
+	if( r_shadows->value == 1 )
 	{
 		if( RI.currententity->baseline.movetype != MOVETYPE_FLY )
 		{
